@@ -15,6 +15,19 @@ struct Instructions {
     to_vec: String,
 }
 
+#[derive(Debug, Clone)]
+struct GiftStacks {
+    vec_1: Vec<char>,
+    vec_2: Vec<char>,
+    vec_3: Vec<char>,
+    vec_4: Vec<char>,
+    vec_5: Vec<char>,
+    vec_6: Vec<char>,
+    vec_7: Vec<char>,
+    vec_8: Vec<char>,
+    vec_9: Vec<char>,
+}
+
 // impl Instructions{
 
 //     fn apply_instructions(list_of_instructions: Vec<Vec<char>>, &self) -> Vec<<Vec<char>> {
@@ -55,8 +68,8 @@ fn get_line_instructions(file_path: &str) -> Vec<Instructions> {
             let to_vec = split_line.next().expect("can't get to vector");
 
             let line_instructions = Instructions{num_objects:count_objects,
-            from_vec: from_vec.to_string(),
-            to_vec:to_vec.to_string()};
+            from_vec: ("vec_".to_owned() + from_vec).to_string(),
+            to_vec:("vec_".to_owned() + to_vec).to_string()};
 
             let line_instructions: Instructions = line_instructions;
 
@@ -69,6 +82,28 @@ fn get_line_instructions(file_path: &str) -> Vec<Instructions> {
 }
 
 fn main() {
+    let mut vec_1: Vec<char> = ['W', 'D', 'G', 'B', 'H', 'R', 'V'].to_vec();
+    let mut vec_2: Vec<char> = ['J', 'N', 'G', 'C', 'R', 'F'].to_vec();
+    let mut vec_3: Vec<char> = ['L', 'S', 'F', 'H', 'D', 'N', 'J'].to_vec();
+    let mut vec_4: Vec<char> = ['J', 'D', 'S', 'V'].to_vec();
+    let mut vec_5: Vec<char> = ['S', 'H', 'D', 'R', 'Q', 'W', 'N', 'V'].to_vec();
+    let mut vec_6: Vec<char> = ['P', 'G', 'H', 'C', 'M'].to_vec();
+    let mut vec_7: Vec<char> = ['F', 'J', 'B', 'G', 'L', 'Z', 'H', 'C'].to_vec();
+    let mut vec_8: Vec<char> = ['S', 'J', 'R'].to_vec();
+    let mut vec_9: Vec<char> = ['L', 'G', 'S', 'R', 'B', 'N', 'V', 'M'].to_vec();
+
+    let mut starting_stacks = GiftStacks{vec_1:vec_1,
+        vec_2:vec_2,
+        vec_3:vec_3,
+        vec_4:vec_4,
+        vec_5:vec_5,
+        vec_6:vec_6,
+        vec_7:vec_7,
+        vec_8:vec_8,
+        vec_9:vec_9,};
+
+
+
     println!("Hello, world!");
 
     let input_path = "./src/input.txt";
@@ -78,4 +113,6 @@ fn main() {
     for instructions in list_instructions{
         println!("{:?}", instructions);
     }
+
+    println!("{:?}", starting_stacks);
 }
