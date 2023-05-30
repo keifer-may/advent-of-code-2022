@@ -130,10 +130,6 @@ fn main() {
         ("vec_9".to_string(), vec_9),
         ]);
 
-
-
-    println!("Hello, world!");
-
     let input_path = "./src/input.txt";
 
     let list_instructions = get_line_instructions(input_path);
@@ -148,10 +144,6 @@ fn main() {
 
     println!("cloned starting stacks after operation{:?}", starting_stacks);
     top_of_stacks(&mut starting_stacks);
-
-
-
-
 
     let vec_1: Vec<char> = ['W', 'D', 'G', 'B', 'H', 'R', 'V'].to_vec();
     let vec_2: Vec<char> = ['J', 'N', 'G', 'C', 'R', 'F'].to_vec();
@@ -174,10 +166,6 @@ fn main() {
         ("vec_8".to_string(), vec_8),
         ("vec_9".to_string(), vec_9),
         ]);
-
-
-
-    println!("Hello, world!");
 
     let input_path = "./src/input.txt";
 
