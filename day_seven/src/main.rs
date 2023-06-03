@@ -1,4 +1,5 @@
-
+use std::io::BufReader;
+use std::fs::File;
 // We are going to implement a tree structure here 
 //and we'll be forced to parse the input file properly to populate it
 
@@ -53,7 +54,7 @@ where
     }
 }
 
-
+use std::io::BufRead;
 
 fn main() {
 
@@ -64,6 +65,23 @@ fn main() {
    my_test_tree.node("5", "My fav num");
     println!("My tree: {:?}", my_test_tree);
     
+
+    let input_path = "./src/input.txt";
+
+    let file = File::open(input_path).expect("Couldn't find file path");
+
+    let lines = BufReader::new(file).lines();
+
+    let mut file_read_reverse = String::from("");
+
+    for line in lines {
+        let cloned_line = line.expect("Couldn't handle line").clone();
+        if ! cloned_line.contains("cd ..") {
+             file_read_reverse = cloned_line.to_string() + &file_read_reverse;
+            println!("{}", cloned_line);
+        }
+    }
     
+    println!("My reversed file: {}", file_read_reverse);
 
 }
