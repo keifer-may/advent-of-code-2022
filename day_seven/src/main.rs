@@ -17,21 +17,23 @@ where
     T: PartialEq
 {
     idx: usize,
-    val: T,
+    name: T,
     parent: Option<usize>,
     children: Vec<usize>,
+    size: Option<u32>,
 }
 
 impl<T> Node<T>
 where
     T: PartialEq
 {
-    fn new(idx: usize, val: T) -> Self {
+    fn new(idx: usize, name: T) -> Self {
         Self {
             idx,
-            val,
+            name,
             parent: None,
             children: vec![],
+            size: None,
         }
     }
 }
@@ -40,18 +42,28 @@ impl<T> ArenaTree<T>
 where
     T: PartialEq
 {
-    fn node(&mut self, val: T, name: T) -> usize {
-        //first see if it exists
+    fn node(&mut self, name: T) -> usize {
         for node in &self.arena {
-            if node.val == val {
+            if node.name == name {
                 return node.idx;
             }
         }
-        // Otherwise, add new node
         let idx = self.arena.len();
         self.arena.push(Node::new(idx, name));
         idx
     }
+
+    fn set_working_dir(&mut self, name: T) -> usize {
+        for node in &self.arena {
+            if node.name == name {
+                return node.idx;
+            }
+        }
+        let idx = self.arena.len();
+        self.arena.push(Node::new(idx, name));
+        idx
+    }
+
 }
 
 use std::io::BufRead;
@@ -60,9 +72,9 @@ fn main() {
 
    let mut my_test_tree = ArenaTree::default();
    
-   my_test_tree.node("Cheese", "My favorite");
-   my_test_tree.node("Chees", "My favorite misspeeeled");
-   my_test_tree.node("5", "My fav num");
+   my_test_tree.node("Cheese");
+   my_test_tree.node("Chees");
+   my_test_tree.node("5");
     println!("My tree: {:?}", my_test_tree);
     
 
@@ -72,16 +84,29 @@ fn main() {
 
     let lines = BufReader::new(file).lines();
 
-    let mut file_read_reverse = String::from("");
+    // let mut file_read_reverse = String::from("");
 
-    for line in lines {
-        let cloned_line = line.expect("Couldn't handle line").clone();
-        if ! cloned_line.contains("cd ..") {
-             file_read_reverse = cloned_line.to_string() + &file_read_reverse;
-            println!("{}", cloned_line);
-        }
-    }
+    // for line in lines {
+    //     let cloned_line = line.expect("Couldn't handle line").clone();
+    //     if ! cloned_line.contains("cd ..") {
+    //          file_read_reverse = cloned_line.to_string() + &file_read_reverse;
+    //         println!("{}", cloned_line);
+    //     }
+    // }
     
-    println!("My reversed file: {}", file_read_reverse);
+    // println!("My reversed file: {}", file_read_reverse);
 
+    let mut file_structure = ArenaTree::default();
+    
+    for line in lines {
+        cloned_line = line.expect("Couldn't handle line").clone();
+        
+        
+        if cloned_line.contains("..") {
+            continue;
+        } if cloned_line.contains("cd") {
+
+        }
+
+    }
 }
